@@ -1,10 +1,6 @@
 import numpy as np
 
 
-
-
-
-
 class Perceptron:
   def __init__(self, eta, epochs):
     self.weights = np.random.randn(3) * 1e-4 # SMALL WEIGHT INIT
@@ -36,3 +32,13 @@ class Perceptron:
       self.weights = self.weights + self.eta * np.dot(X_with_bias.T, self.error) # backward propagation
       print(f"updated weights after epoch:\n{epoch}/{self.epochs} : \n{self.weights}")
       print("#####"*10)
+
+
+  def predict(self, X):
+    X_with_bias = np.c_[X, -np.ones((len(X), 1))]
+    return self.activationFunction(X_with_bias, self.weights)
+
+  def total_loss(self):
+    total_loss = np.sum(self.error)
+    print(f"total loss: {total_loss}")
+    return total_loss
